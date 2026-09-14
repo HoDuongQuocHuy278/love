@@ -1,0 +1,7 @@
+Đặt nhạc tại đây với tên:
+
+- nhac-1.mp3
+- nhac-2.mp3
+- nhac-3.mp3
+
+Nếu muốn dùng tên khác, sửa biến MUSIC_PLAYLIST ở cuối file index.html.
