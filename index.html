@@ -277,42 +277,255 @@
 
     .intro-text.show { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
 
-    /* Bánh kem */
+    /* Hành tinh trái tim và các quỹ đạo ngân hà */
     #main-screen { position: fixed; inset: 0; z-index: 6; display: grid; place-items: center; pointer-events: none; }
-    .cake-wrapper { position: absolute; width: 320px; height: 350px; transition: opacity .6s ease, transform .7s var(--ease-out), filter .6s; }
-    .cake-wrapper.fade { opacity: 0; filter: blur(7px); transform: translateY(25px) scale(.86); }
-    .cake-layer { position: absolute; left: 50%; border: 1px solid rgba(255,255,255,.42); border-radius: 14px; box-shadow: inset 0 7px rgba(255,255,255,.18), 0 16px 30px rgba(45,8,34,.2); opacity: 0; }
 
-    @keyframes dropBounce {
-      0% { transform: translate(-50%, -650px) rotate(-3deg); opacity: 0; }
-      65% { transform: translate(-50%, 15px); opacity: 1; }
-      83% { transform: translate(-50%, -6px); }
-      100% { transform: translate(-50%, 0); opacity: 1; }
+    .heart-planet {
+      position: absolute;
+      width: min(570px, 88vw);
+      aspect-ratio: 1.25;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(34px) scale(.62);
+      transition: opacity .7s ease, transform 1.15s var(--ease-out), filter .8s ease;
+      isolation: isolate;
     }
 
-    .layer-1 { bottom: 0; width: 280px; height: 76px; background: linear-gradient(#f990ad, #db4d7d); }
-    .layer-2 { bottom: 76px; width: 222px; height: 66px; background: linear-gradient(#ffc2d2, #e9789c); }
-    .layer-3 { bottom: 142px; width: 164px; height: 56px; background: linear-gradient(#fff2f6, #f6b7cd); }
+    .heart-planet.start {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
 
-    .drip-container { position: absolute; inset: -2px 0 auto; height: 32px; }
-    .drip { position: absolute; top: 0; width: 20px; height: 30px; border-radius: 0 0 12px 12px; background: #fff9fb; transform: scaleY(0); transform-origin: top; }
-    .drip:nth-child(1) { left: 10%; height: 24px; }
-    .drip:nth-child(2) { left: 31%; width: 25px; height: 39px; }
-    .drip:nth-child(3) { left: 58%; width: 16px; height: 29px; }
-    .drip:nth-child(4) { left: 78%; width: 22px; height: 34px; }
-    @keyframes dripDrop { to { transform: scaleY(1); } }
+    .heart-planet.fade {
+      opacity: 0;
+      filter: blur(13px) brightness(1.35);
+      transform: translateY(-8px) scale(1.14);
+    }
 
-    .candle { bottom: 198px; width: 15px; height: 58px; background: repeating-linear-gradient(45deg, #fff 0 5px, #ed4d7e 5px 10px); }
-    .flame { position: absolute; top: -27px; left: 50%; width: 18px; height: 29px; border-radius: 55% 55% 30% 30%; background: #ffc85e; box-shadow: 0 0 16px #ffc85e, 0 0 34px #ff6a48; opacity: 0; transform: translateX(-50%) scale(0); }
-    @keyframes ignite { to { opacity: 1; transform: translateX(-50%) scale(1); } }
-    @keyframes flicker { to { transform: translateX(-50%) scale(1.12) rotate(3deg); filter: brightness(1.15); } }
+    .cosmic-aura {
+      position: absolute;
+      z-index: 0;
+      width: 58%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 77, 154, .34) 0 12%, rgba(157, 87, 236, .18) 28%, transparent 68%);
+      filter: blur(24px);
+      opacity: 0;
+    }
 
-    .cake-wrapper.start .layer-1 { animation: dropBounce .9s var(--ease-out) forwards; }
-    .cake-wrapper.start .layer-2 { animation: dropBounce .9s var(--ease-out) .7s forwards; }
-    .cake-wrapper.start .layer-3 { animation: dropBounce .9s var(--ease-out) 1.4s forwards; }
-    .cake-wrapper.start .candle { animation: dropBounce .9s var(--ease-out) 2.1s forwards; }
-    .cake-wrapper.start .drip { animation: dripDrop .7s ease 1.9s forwards; }
-    .cake-wrapper.start .flame { animation: ignite .45s ease 2.9s forwards, flicker .55s ease-in-out 3.35s infinite alternate; }
+    .heart-planet.start .cosmic-aura {
+      animation: cosmicAuraIn 1.2s var(--ease-out) .15s forwards, cosmicAuraPulse 2.6s ease-in-out 1.4s infinite alternate;
+    }
+
+    @keyframes cosmicAuraIn { to { opacity: 1; transform: scale(1); } }
+    @keyframes cosmicAuraPulse { to { opacity: .68; transform: scale(1.2); } }
+
+    .heart-svg {
+      position: absolute;
+      z-index: 4;
+      width: 58%;
+      overflow: visible;
+      filter: drop-shadow(0 0 22px rgba(255, 49, 139, .58));
+    }
+
+    .heart-neon-blur,
+    .heart-neon-line,
+    .heart-neon-shine {
+      fill: rgba(103, 15, 67, .13);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+
+    .heart-neon-blur { stroke: #ff2f91; stroke-width: 19; opacity: .32; filter: blur(10px); }
+    .heart-neon-line { stroke: url(#heart-gradient); stroke-width: 8; }
+    .heart-neon-shine { fill: transparent; stroke: rgba(217, 240, 255, .88); stroke-width: 2.2; opacity: .8; }
+
+    .heart-planet.start .heart-neon-blur,
+    .heart-planet.start .heart-neon-line,
+    .heart-planet.start .heart-neon-shine {
+      animation: drawHeart 1.6s var(--ease-out) .35s forwards;
+    }
+
+    .heart-planet.start .heart-neon-line {
+      animation: drawHeart 1.6s var(--ease-out) .35s forwards, neonHeartbeat 1.85s ease-in-out 2.1s infinite;
+    }
+
+    @keyframes drawHeart { to { stroke-dashoffset: 0; } }
+    @keyframes neonHeartbeat {
+      0%, 32%, 100% { stroke-width: 8; filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 9px #ff4a9d); }
+      12% { stroke-width: 10; filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 18px #ff4a9d); }
+      21% { stroke-width: 8.7; }
+    }
+
+    .heart-core-copy {
+      position: absolute;
+      z-index: 6;
+      top: 48%;
+      left: 50%;
+      width: 45%;
+      color: rgba(255, 240, 249, .94);
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(22px, 4vw, 38px);
+      line-height: 1;
+      text-align: center;
+      text-shadow: 0 0 12px #ff4b9e, 0 0 30px rgba(255, 75, 158, .7);
+      opacity: 0;
+      transform: translate(-50%, -35%) scale(.8);
+    }
+
+    .heart-planet.start .heart-core-copy {
+      animation: coreCopyIn .8s var(--ease-out) 1.65s forwards;
+    }
+
+    @keyframes coreCopyIn { to { opacity: 1; transform: translate(-50%, -35%) scale(1); } }
+
+    .galaxy-speck {
+      position: absolute;
+      z-index: 3;
+      width: var(--size);
+      height: var(--size);
+      left: var(--left);
+      top: var(--top);
+      border-radius: 50%;
+      background: var(--color, #fff);
+      box-shadow: 0 0 7px var(--color, #fff), 0 0 16px rgba(255, 93, 170, .7);
+      opacity: 0;
+    }
+
+    .heart-planet.start .galaxy-speck {
+      animation: speckIn .6s ease var(--delay) forwards, speckTwinkle 1.7s ease-in-out calc(var(--delay) + .6s) infinite alternate;
+    }
+
+    @keyframes speckIn { to { opacity: .9; } }
+    @keyframes speckTwinkle { to { opacity: .2; transform: scale(.45); } }
+
+    .orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      width: var(--orbit-width);
+      height: var(--orbit-height);
+      border: 1.4px solid rgba(255, 78, 165, .48);
+      border-radius: 50%;
+      box-shadow: 0 0 7px rgba(255, 43, 151, .7), inset 0 0 7px rgba(178, 94, 255, .35);
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(var(--tilt)) scale(.72);
+    }
+
+    .orbit::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: conic-gradient(from 30deg, transparent 0 17%, rgba(255,255,255,.9) 22%, #ff44a0 28%, transparent 38% 64%, #a989ff 72%, transparent 82%);
+      filter: blur(1px);
+      opacity: .82;
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    }
+
+    .orbit-one { --orbit-width: 92%; --orbit-height: 31%; --tilt: -8deg; z-index: 5; }
+    .orbit-two { --orbit-width: 78%; --orbit-height: 49%; --tilt: 18deg; z-index: 2; }
+    .orbit-three { --orbit-width: 70%; --orbit-height: 64%; --tilt: -31deg; z-index: 3; }
+
+    .heart-planet.start .orbit {
+      animation: orbitReveal .85s var(--ease-out) var(--orbit-delay) forwards;
+    }
+
+    .orbit-one { --orbit-delay: .8s; }
+    .orbit-two { --orbit-delay: 1.05s; }
+    .orbit-three { --orbit-delay: 1.25s; }
+
+    @keyframes orbitReveal {
+      to { opacity: 1; transform: translate(-50%, -50%) rotate(var(--tilt)) scale(1); }
+    }
+
+    .orbit-spinner {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      animation: orbitSpin var(--speed) linear infinite;
+      animation-play-state: paused;
+    }
+
+    .heart-planet.start .orbit-spinner { animation-play-state: running; }
+    .orbit-one .orbit-spinner { --speed: 7s; }
+    .orbit-two .orbit-spinner { --speed: 9.5s; animation-direction: reverse; }
+    .orbit-three .orbit-spinner { --speed: 12s; }
+
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+
+    .satellite-heart {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      display: grid;
+      place-items: center;
+      width: var(--heart-size);
+      height: var(--heart-size);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fff 0 7%, #ff70b0 25%, #8d3bd6 72%);
+      box-shadow: 0 0 9px #ff4da4, 0 0 23px rgba(171, 87, 240, .8);
+      font-size: calc(var(--heart-size) * .52);
+      line-height: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .satellite-heart::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border: 1px solid rgba(255, 111, 191, .42);
+      border-radius: 50%;
+      animation: satelliteHalo 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes satelliteHalo { to { opacity: .2; transform: scale(1.35); } }
+
+    .heart-glint {
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      top: 45%;
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .heart-glint::before,
+    .heart-glint::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 99px;
+      background: #fff;
+      box-shadow: 0 0 14px #fff, 0 0 25px #ff73bb;
+      transform: translate(-50%, -50%);
+    }
+
+    .heart-glint::before { width: 2px; height: 26px; }
+    .heart-glint::after { width: 26px; height: 2px; }
+
+    .heart-planet.start .heart-glint {
+      animation: glintFlash .65s ease 1.85s forwards;
+    }
+
+    @keyframes glintFlash {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(0); }
+      45% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(2.4) rotate(45deg); }
+    }
 
     /* Lá thư */
     .wish-modal {
@@ -507,8 +720,8 @@
       .progress-row { margin-bottom: 16px; }
       .keypad { gap: 8px; }
       .key-btn { min-height: 43px; border-radius: 12px; font-size: 16px; }
-      .cake-wrapper { transform: scale(.82); }
-      .cake-wrapper.fade { transform: translateY(20px) scale(.72); }
+      .heart-planet { width: min(540px, 96vw); }
+      .heart-planet.fade { transform: translateY(-6px) scale(1.08); }
     }
 
     @media (max-width: 520px) {
@@ -526,6 +739,10 @@
       .letter-text { font-size: 13px; line-height: 1.68; }
       .signature { font-size: 27px; }
       .footer-note { font-size: 8px; }
+      .heart-planet { width: 108vw; max-width: 480px; }
+      .heart-svg { width: 60%; }
+      .heart-core-copy { font-size: clamp(20px, 7vw, 29px); }
+      .satellite-heart { --heart-size: 22px !important; }
     }
 
     @media (max-height: 680px) and (min-width: 721px) {
@@ -620,15 +837,61 @@
   </div>
 
   <div id="main-screen">
-    <div class="cake-wrapper" id="cake" aria-hidden="true">
-      <div class="cake-layer layer-1"></div>
-      <div class="cake-layer layer-2"></div>
-      <div class="cake-layer layer-3">
-        <div class="drip-container">
-          <span class="drip"></span><span class="drip"></span><span class="drip"></span><span class="drip"></span>
+    <div class="heart-planet" id="heart-planet" aria-hidden="true">
+      <div class="cosmic-aura"></div>
+
+      <!-- Những hạt sao tạo cảm giác ngân hà quanh trái tim -->
+      <i class="galaxy-speck" style="--left:10%;--top:34%;--size:3px;--delay:.5s;--color:#fff"></i>
+      <i class="galaxy-speck" style="--left:18%;--top:68%;--size:4px;--delay:.9s;--color:#ff74ba"></i>
+      <i class="galaxy-speck" style="--left:28%;--top:13%;--size:3px;--delay:1.2s;--color:#cab7ff"></i>
+      <i class="galaxy-speck" style="--left:38%;--top:82%;--size:2px;--delay:.7s;--color:#fff"></i>
+      <i class="galaxy-speck" style="--left:64%;--top:11%;--size:4px;--delay:1s;--color:#ff7dbf"></i>
+      <i class="galaxy-speck" style="--left:73%;--top:81%;--size:3px;--delay:.65s;--color:#d6c4ff"></i>
+      <i class="galaxy-speck" style="--left:87%;--top:39%;--size:3px;--delay:1.25s;--color:#fff"></i>
+      <i class="galaxy-speck" style="--left:91%;--top:61%;--size:4px;--delay:.85s;--color:#ff63ae"></i>
+
+      <!-- Ba quỹ đạo nghiêng, mỗi quỹ đạo quay với tốc độ khác nhau -->
+      <div class="orbit orbit-one">
+        <div class="orbit-spinner">
+          <span class="satellite-heart" style="--x:1%;--y:50%;--heart-size:29px">♥</span>
+          <span class="satellite-heart" style="--x:74%;--y:4%;--heart-size:21px">♡</span>
+          <span class="satellite-heart" style="--x:98%;--y:58%;--heart-size:25px">♥</span>
         </div>
       </div>
-      <div class="cake-layer candle"><div class="flame"></div></div>
+
+      <div class="orbit orbit-two">
+        <div class="orbit-spinner">
+          <span class="satellite-heart" style="--x:10%;--y:14%;--heart-size:23px">♡</span>
+          <span class="satellite-heart" style="--x:70%;--y:94%;--heart-size:27px">♥</span>
+          <span class="satellite-heart" style="--x:96%;--y:35%;--heart-size:20px">♥</span>
+        </div>
+      </div>
+
+      <div class="orbit orbit-three">
+        <div class="orbit-spinner">
+          <span class="satellite-heart" style="--x:28%;--y:2%;--heart-size:20px">♥</span>
+          <span class="satellite-heart" style="--x:3%;--y:64%;--heart-size:25px">♡</span>
+          <span class="satellite-heart" style="--x:81%;--y:88%;--heart-size:22px">♥</span>
+        </div>
+      </div>
+
+      <!-- Trái tim neon dạng vector: luôn sắc nét trên cả điện thoại và máy tính -->
+      <svg class="heart-svg" viewBox="0 0 320 280" role="img" aria-label="Hành tinh trái tim neon">
+        <defs>
+          <linearGradient id="heart-gradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#88ddff"></stop>
+            <stop offset=".34" stop-color="#ff9bd1"></stop>
+            <stop offset=".72" stop-color="#ff3a91"></stop>
+            <stop offset="1" stop-color="#b78cff"></stop>
+          </linearGradient>
+        </defs>
+        <path class="heart-neon-blur" pathLength="1" d="M160 252 C141 233 55 174 40 105 C28 50 61 22 101 25 C130 27 149 46 160 65 C171 46 190 27 219 25 C259 22 292 50 280 105 C265 174 179 233 160 252 Z"></path>
+        <path class="heart-neon-line" pathLength="1" d="M160 252 C141 233 55 174 40 105 C28 50 61 22 101 25 C130 27 149 46 160 65 C171 46 190 27 219 25 C259 22 292 50 280 105 C265 174 179 233 160 252 Z"></path>
+        <path class="heart-neon-shine" pathLength="1" d="M160 252 C141 233 55 174 40 105 C28 50 61 22 101 25 C130 27 149 46 160 65 C171 46 190 27 219 25 C259 22 292 50 280 105 C265 174 179 233 160 252 Z"></path>
+      </svg>
+
+      <div class="heart-core-copy">Vũ trụ của em<br>là anh ♡</div>
+      <span class="heart-glint"></span>
     </div>
 
     <section class="wish-modal" id="wish-modal" aria-label="Lá thư kỷ niệm">
@@ -898,7 +1161,7 @@
       const login = document.getElementById("login-screen");
       const text1 = document.getElementById("text-1");
       const text2 = document.getElementById("text-2");
-      const cake = document.getElementById("cake");
+      const heartPlanet = document.getElementById("heart-planet");
       const modal = document.getElementById("wish-modal");
 
       login.classList.add("hide");
@@ -915,11 +1178,11 @@
       text2.classList.remove("show");
       await sleep(800);
 
-      cake.classList.add("start");
-      await sleep(3700);
+      heartPlanet.classList.add("start");
+      await sleep(3900);
       burstHearts();
-      cake.classList.add("fade");
-      await sleep(600);
+      heartPlanet.classList.add("fade");
+      await sleep(720);
 
       modal.classList.add("show");
       await sleep(800);
